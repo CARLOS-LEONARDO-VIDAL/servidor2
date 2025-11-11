@@ -1,24 +1,29 @@
 {
   "name": "backend2",
   "version": "1.0.0",
-  "description": "backend de agenda ",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \\\\\\\"Error: no test specified\\\\\\\" && exit 1",
-    "star": "node index.js",
-    "dev": "nodemon index.jss"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
-  "keywords": [
-    "nodejs",
-    "rest"
-  ],
-  "author": "LeonardoV",
-  "license": "MIT",
   "dependencies": {
     "express": "^5.1.0",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "cors": "^2.8.5"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
-  }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CARLOS-LEONARDO-VIDAL/servidor2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/CARLOS-LEONARDO-VIDAL/servidor2/issues"
+  },
+  "homepage": "https://github.com/CARLOS-LEONARDO-VIDAL/servidor2#readme"
 }
