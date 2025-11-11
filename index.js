@@ -91,7 +91,7 @@ app.post('/api/persons', (req, res) => {
   res.json(person);
 });
 
-// ✅ PUT (actualizar número)
+
 app.put('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id);
   const body = req.body;
@@ -106,7 +106,7 @@ app.put('/api/persons/:id', (req, res) => {
   res.json(updatedPerson);
 });
 
-// middleware 404
+
 app.use((req, res) => {
   res.status(404).json({ error: 'Ruta desconocida' });
 });
