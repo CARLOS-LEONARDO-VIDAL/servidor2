@@ -12,7 +12,7 @@ const Person = require('./models/person')
 app.use(cors())
 app.use(express.json())
 
-// Servir React desde /dist
+// Servir React desde 'dist'
 app.use(express.static(path.join(__dirname, 'dist')))
 
 // Morgan logging
@@ -72,11 +72,7 @@ app.post('/api/persons', (req, res, next) => {
 // Actualizar número
 app.put('/api/persons/:id', (req, res, next) => {
   const { number } = req.body
-  Person.findByIdAndUpdate(
-    req.params.id,
-    { number },
-    { new: true, runValidators: true, context: 'query' }
-  )
+  Person.findByIdAndUpdate(req.params.id, { number }, { new: true })
     .then(person => {
       if (person) res.json(person)
       else res.status(404).json({ error: 'Person not found' })
@@ -92,15 +88,10 @@ app.delete('/api/persons/:id', (req, res, next) => {
 })
 
 // =====================
-// Rutas desconocidas
+// Rutas desconocidas / frontend
 // =====================
-app.use((req, res, next) => {
-  // Si es una ruta de frontend, devolver index.html
-  if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-  } else {
-    res.status(404).json({ error: 'unknown endpoint' })
-  }
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
 })
 
 // =====================
@@ -109,10 +100,7 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   console.error(error.message)
   if (error.name === 'CastError') {
-    return res.status(400).json({ error: 'malformed id' })
-  }
-  if (error.name === 'ValidationError') {
-    return res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: 'id not found' })
   }
   next(error)
 })
