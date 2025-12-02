@@ -28,9 +28,10 @@ const requestLogger = (request, response, next) => {
 app.use(requestLogger)
  
  
-// ruta raiz
-app.get('/', (request, response) => {
-    response.send('<h1>API REST - Agenda Telefónica</h1>')
+app.get('/api/persons', (request, response) => {
+    Person.find({}).then(persons => {
+        response.json(persons)
+    })
 })
  
 // devolver todos
