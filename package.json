@@ -8,9 +8,11 @@
     "dev": "nodemon index.js"
   },
   "dependencies": {
-    "express": "^5.1.0",
-    "morgan": "^1.10.1",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "mongoose": "^8.20.1",
+    "morgan": "^1.10.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
@@ -18,7 +20,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/CARLOS-LEONARDO-VIDAL/servidor2.git"
+    "url": "git+https://github.com/CARLOS-LEONARDO-VIDAL/servidor2.git"
   },
   "keywords": [],
   "author": "",
