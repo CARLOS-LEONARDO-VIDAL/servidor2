@@ -28,11 +28,7 @@ const requestLogger = (request, response, next) => {
 app.use(requestLogger)
  
  
-app.get('/api/persons', (request, response) => {
-    Person.find({}).then(persons => {
-        response.json(persons)
-    })
-})
+
  
 // devolver todos
 app.get('/api/persons', (request, response) => {
