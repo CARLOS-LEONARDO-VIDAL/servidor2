@@ -1,51 +1,48 @@
-require('dotenv').config()
 const mongoose = require('mongoose')
-
-
-const listMode = process.argv.length === 2
-
-const addMode = process.argv.length === 4
-
-if (!listMode && !addMode) {
-  console.log('Uso correcto:')
-  console.log('  Para listar: node mongo.js')
-  console.log('  Para agregar: node mongo.js <name> <number>')
-  process.exit(1)
+ 
+if (process.argv.length < 3) {
+    console.log('Faltan parámetros');
+    console.log('Uso:');
+    console.log('  node mongo.js <password>');
+    console.log('  node mongo.js <password> <name> <number>');
+    process.exit(1)
 }
-
-
-const url = process.env.MONGODB_URI
-
+ 
+const password = process.argv[2]
+ 
+const url = `mongodb+srv://Leonardo:${password}@cluster0.unrpwud.mongodb.net/?appName=Cluster0`
+ 
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
-
-
+ 
+// Schema
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+    name: String,
+    number: String,
 })
-
+ 
 const Person = mongoose.model('Person', personSchema)
-
-
-if (listMode) {
-  Person.find({}).then(result => {
-    console.log('📒 Phonebook:')
-    result.forEach(p => console.log(`${p.name} ${p.number}`))
-    mongoose.connection.close()
-  })
-  return
+ 
+ 
+if (process.argv.length === 3) {
+    Person.find({}).then(result => {
+        console.log("Agenda Telefónica:")
+        result.forEach(p => {
+            console.log(`${p.name} - ${p.number}`)
+        })
+        mongoose.connection.close()
+    })
 }
-
-
-if (addMode) {
-  const name = process.argv[2]
-  const number = process.argv[3]
-
-  const person = new Person({ name, number })
-
-  person.save().then(() => {
-    console.log(`✔ Agregado: ${name} (${number}) a la agenda`)
-    mongoose.connection.close()
-  })
+ 
+ 
+if (process.argv.length >= 5) {
+    const name = process.argv[3]
+    const number = process.argv[4]
+ 
+    const person = new Person({ name, number })
+ 
+    person.save().then(result => {
+        console.log(`Persona agregada: ${name} ${number}`)
+        mongoose.connection.close()
+    })
 }

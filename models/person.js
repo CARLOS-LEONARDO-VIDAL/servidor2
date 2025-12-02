@@ -1,27 +1,31 @@
+// models/person.js
+require('dotenv').config()
 const mongoose = require('mongoose')
-
-mongoose.set('strictQuery', false)
-
+ 
 const url = process.env.MONGODB_URI
-console.log('Conectando a MongoDB...')
-
+ 
+mongoose.set('strictQuery', false)
+console.log('connecting to', url);
+ 
 mongoose.connect(url)
-  .then(() => {
-    console.log('Conectado a MongoDB')
-  })
-  .catch((error) => {
-    console.log('Error conectando a MongoDB:', error.message)
-  })
-
+    .then(result => {
+        console.log('connected to MongoDB');
+    })
+    .catch (error => {
+        console.log('error connecting to MongoDB', error.message);
+    })
+ 
 const personSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  number: {
-    type: String,
-    required: true
-  }
+    name: String,
+    number: String,
 })
-
+ 
+personSchema.set('toJSON', {
+    transform: (document, obj) => {
+        obj.id = document._id.toString()
+        delete obj._id
+        delete obj.__v
+    }
+})
+ 
 module.exports = mongoose.model('Person', personSchema)
